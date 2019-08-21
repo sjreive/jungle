@@ -4,6 +4,14 @@
     <h1>My Cart</h1>
   </header>
 
+<%# Check if there are any items in the cart; if not, render msg & button to go back to home page %>
+  <% if enhanced_cart.length == 0 %>
+    <div class= "alert alert-danger">
+      <strong>There's nothing in your cart.</strong>
+    </div>
+    <%= link_to 'Back to Home Page', :root %>
+
+  <% else %>
   <div class="panel panel-default items">
     <table class="table table-bordered">
       <thead>
@@ -26,7 +34,6 @@
           </th>
           <th>
           <%= humanized_money_with_symbol cart_subtotal_cents / 100.0 %>
-            <%# <%= cart_subtotal_cents / 100.0 %>
           </th>
         </tr>
       </tfoot>
@@ -48,6 +55,7 @@
         </script>
       <% end %>
     </div>
+    <%end%>
   </div>
 
 </section>
