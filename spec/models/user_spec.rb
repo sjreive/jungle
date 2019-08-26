@@ -32,6 +32,12 @@ RSpec.describe User, type: :model do
       expect(user2).to_not be_valid
     end
 
+    it "is not valid when the password is shorter than 3 characters" do 
+      user.password = "d"
+      user.password_confirmation= "d"
+      expect(user).to_not be_valid
+    end
+
   end
   
 end
