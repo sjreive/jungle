@@ -41,11 +41,25 @@ RSpec.describe User, type: :model do
   end
 
   describe '.authenticate_with_credentials' do
+    
     it "returns a registered user if correct login credentials are entered" do
       @user = User.new(name: "Sarah Joan", email:"sarahj@sarah.com", password: "puppies", password_confirmation: "puppies")
       @user.save!
       expect(User.authenticate_with_credentials("sarahj@sarah.com", "puppies")).to be_a User
     end
+
+    it "will log the user in even if they have spaces around their email" do
+      @user = User.new(name: "Sarah Joan", email:"sarahj@sarah.com", password: "puppies", password_confirmation: "puppies")
+      @user.save!
+      expect(User.authenticate_with_credentials("  sarahj@sarah.com  ", "puppies")).to be_a User
+    end
+
+    it "will log the user in even if their email case is incorrect" do
+      @user = User.new(name: "Sarah Joan", email:"sarahj@sarah.com", password: "puppies", password_confirmation: "puppies")
+      @user.save!
+      expect(User.authenticate_with_credentials(" SaRaHj@sArAh.cOm  ", "puppies")).to be_a User
+    end
+
   end
   
 end
